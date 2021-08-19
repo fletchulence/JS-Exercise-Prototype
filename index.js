@@ -46,13 +46,10 @@ function Person(name, age) {
   this.stomach = []; //empty stomach array
   
 }
-
 Person.prototype.eat = function(edible){
   if(this.stomach.length < 10){
     this.stomach.push(edible);
-  } else {
-    //do not push
-  }
+  } 
 }
 
 Person.prototype.poop = function(){
@@ -65,9 +62,6 @@ Person.prototype.toString = function(){
 
 //when eating somethign edible they have no effect
 //we need to write a method for the eat 
-
-
-
 
 
 
@@ -85,10 +79,25 @@ Person.prototype.toString = function(){
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-  
+function Car(model, milesPerGallon) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
+}
+//write a method
+Car.prototype.fill = function (gallons){
+  this.tank = this.tank + gallons;
+  // you are just reassigning the tank values from before.
 }
 
+ Car.prototype.drive = function (distance){
+  const milesPossible = this.tank * this.milesPerGallon;
+  if(this.tank === 0){
+    return `the tank has run out`
+  }
+
+} 
 
 /*
   TASK 3
@@ -97,20 +106,35 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
- 
+function Baby(name, age, favoriteToy) {
+  //in order to bind this NEW thing(WHAT TO CALL IT??) ******* we need to do the following and identify what has already happened
+  Person.call(this, name, age);
+  //something else e define as the following
+  this.favoriteToy = favoriteToy;
+}       
+/* now we need to create a way that the child can get in on the fun and inherit the parent's 
+attributes by stating oBJECT.CREATE and putting parent attr on one side and child attr on the other
+and using prototype like so */
+Baby.prototype = Object.create(Person.prototype);
+
+/* NOW We set the function to start at our action word (METHOD - it is an function on the object, 
+  therefore method) that we created (in this case 'play') */
+Baby.prototype.play = function(){
+  
+    return `Playing with ${this.favoriteToy}`
+  
 }
 
-
 /* 
-  TASK 4
+  TASK 4 ** i like these - hope we can get feedback on it before we do the sprint challenge
   In your own words explain the four principles for the "this" keyword below:
-  1. 
+  1. NEW : 
   2. 
   3. 
   4. 
 */
 
+//https://john-dugan.com/this-in-javascript/
 
 ///////// END OF CHALLENGE /////////
 
